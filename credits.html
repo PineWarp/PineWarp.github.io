@@ -1,9 +1,19 @@
-<!doctype html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="PineEditor is a powerful Scratch mod that enhances your Scratch experience with advanced features and optimizations."/><meta property="og:title" content="PineEditor Credits"/><meta property="og:description" content="PineEditor is a powerful Scratch mod that enhances your Scratch experience with advanced features and optimizations."/><meta property="og:type" content="website"/><meta property="og:image" content="images/apple-touch-icon.png"/><meta property="og:url" content="https://warp.mistium.com/"/><title>PineEditor Credits</title><style>body[data-splash-theme="dark"] {
+<!doctype html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="PineEditor is a powerful Scratch mod that enhances your Scratch experience with advanced features and optimizations."/><meta property="og:title" content="PineEditor Credits"/><meta property="og:description" content="PineEditor is a powerful Scratch mod that enhances your Scratch experience with advanced features and optimizations."/><meta property="og:type" content="website"/><meta property="og:image" content="images/apple-touch-icon.png"/><meta property="og:url" content="https://com.bilup.org/"/><meta property="og:site_name" content="PineEditor"/><meta name="twitter:card" content="summary"/><title>PineEditor Credits</title><style>body[data-splash-theme="dark"] {
         background: #111;
       }
 
       noscript {
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      }
+
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+
+      #app {
+        height: 100%;
       }</style></head><body><noscript><h1>This page requires JavaScript</h1></noscript><script>(function() {
         var theme = '';
         var accent = '#75C1C4';
@@ -20,8 +30,9 @@
         } else if (themeSetting) {
           try {
             var parsed = JSON.parse(themeSetting);
-            theme = parsed.gui || 'light';
-            accent = parsed.accent || accent;
+            if (parsed.gui === 'dark' || parsed.gui === 'light') {
+              theme = parsed.gui;
+            }
           } catch (e) {
             // ignore
           }
@@ -32,53 +43,4 @@
         }
 
         document.body.setAttribute('data-splash-theme', theme);
-
-        // Initialize CSS variables to match the theme before React loads
-        // This ensures that addons.html has the same CSS variables as editor.html
-        var doc = document.documentElement;
-        var isDark = theme === 'dark';
-        
-        // Set basic UI colors
-        doc.style.setProperty('--ui-primary', isDark ? '#292929' : '#e5f0ff');
-        doc.style.setProperty('--ui-secondary', isDark ? '#333333' : '#ffffff');
-        doc.style.setProperty('--ui-tertiary', isDark ? '#444444' : '#f9f9f9');
-        
-        // Set looks colors
-        doc.style.setProperty('--looks-secondary', accent);
-        doc.style.setProperty('--looks-secondary-dark', isDark ? '#5a9ea1' : '#5a9ea1');
-        doc.style.setProperty('--looks-transparent', 'rgba(99, 151, 153, 0.2)');
-        doc.style.setProperty('--looks-light-transparent', 'rgba(99, 151, 153, 0.1)');
-        
-        // Set other color variables
-        doc.style.setProperty('--ui-white', isDark ? '#ffffff' : '#ffffff');
-        doc.style.setProperty('--ui-white-dim', isDark ? '#e0e0e0' : '#e0e0e0');
-        doc.style.setProperty('--ui-white-transparent', isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.1)');
-        doc.style.setProperty('--ui-transparent', isDark ? 'rgba(0, 0, 0, 0.1)' : 'rgba(0, 0, 0, 0.1)');
-        doc.style.setProperty('--ui-black-transparent', isDark ? 'rgba(0, 0, 0, 0.2)' : 'rgba(0, 0, 0, 0.1)');
-        
-        // Set text colors
-        doc.style.setProperty('--text-primary', isDark ? '#ffffff' : '#575e75');
-        doc.style.setProperty('--text-primary-transparent', isDark ? 'rgba(255, 255, 255, 0.7)' : 'rgba(87, 94, 117, 0.7)');
-        
-        // Set modal colors
-        doc.style.setProperty('--ui-modal-overlay', isDark ? 'rgba(0, 0, 0, 0.5)' : 'rgba(0, 0, 0, 0.5)');
-        doc.style.setProperty('--ui-modal-background', isDark ? '#292929' : '#ffffff');
-        doc.style.setProperty('--ui-modal-foreground', isDark ? '#ffffff' : '#575e75');
-        doc.style.setProperty('--ui-modal-header-background', accent);
-        doc.style.setProperty('--ui-modal-header-foreground', '#ffffff');
-        
-        // Set block colors
-        doc.style.setProperty('--motion-primary', '#4C97FF');
-        doc.style.setProperty('--motion-tertiary', '#3373CC');
-        doc.style.setProperty('--looks-secondary', accent);
-        doc.style.setProperty('--sound-primary', '#CF63CF');
-        doc.style.setProperty('--sound-tertiary', '#A63DA6');
-        doc.style.setProperty('--control-primary', '#FFBF00');
-        doc.style.setProperty('--data-primary', '#FF8C1A');
-        doc.style.setProperty('--pen-primary', '#0fbd8c');
-        doc.style.setProperty('--pen-transparent', 'rgba(15, 189, 140, 0.2)');
-        doc.style.setProperty('--pen-tertiary', '#0b8e69');
-        doc.style.setProperty('--error-primary', '#ff6680');
-        doc.style.setProperty('--error-light', '#ff99ab');
-        doc.style.setProperty('--error-transparent', 'rgba(255, 102, 128, 0.2)');
-      })();</script><div id="app"></div><script src="js/gleba4/runtime.c7b94eba3132168b876c.js"></script><script src="js/gleba4/vendors.4e3721d7ccb838fc09f2.js"></script><script src="js/gleba4/common.87fd495926d4bb784032.js"></script><script src="js/gleba4/credits.d49871195a78ed44786f.js"></script></body></html>
+      })();</script><div id="app"></div><script src="js/gleba4/runtime.2bb9011a417c65819fe6.js"></script><script src="js/gleba4/scratch-vm.5c18b7b9135c8778324d.js"></script><script src="js/gleba4/react.910358daf6057cfe9f8e.js"></script><script src="js/gleba4/vendors.5e3118cb744d6dce0e1c.js"></script><script src="js/gleba4/common.c606e376b0f4bf12744d.js"></script><script src="js/gleba4/credits.39f7a3bbc6a8da5719b7.js"></script></body></html>

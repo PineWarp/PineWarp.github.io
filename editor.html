@@ -1,4 +1,4 @@
-<!doctype html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google" value="notranslate"><meta name="description" content="Create, edit, and share projects with PineEditor's powerful Scratch editor. Build games, animations, and interactive stories with advanced features and optimizations."/><meta property="og:title" content="PineEditor-Editor"/><meta property="og:description" content="Create, edit, and share projects with PineEditor's powerful Scratch editor. Build games, animations, and interactive stories with advanced features and optimizations."/><meta property="og:type" content="website"/><meta property="og:image" content="images/apple-touch-icon.png"/><meta property="og:url" content="https://warp.mistium.com/"/><title>PineEditor-Editor</title><link rel="apple-touch-icon" href="images/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><link rel="preconnect" href="https://challenges.cloudflare.com"><script src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script><style>.splash-screen {
+<!doctype html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google" value="notranslate"><meta name="description" content="Create, edit, and share projects with PineEditor's powerful Scratch editor. Build games, animations, and interactive stories with advanced features and optimizations."/><meta property="og:title" content="PineEditor-Editor"/><meta property="og:description" content="Create, edit, and share projects with PineEditor's powerful Scratch editor. Build games, animations, and interactive stories with advanced features and optimizations."/><meta property="og:type" content="website"/><meta property="og:image" content="images/apple-touch-icon.png"/><meta property="og:url" content="https://pinewarp.github.io/"/><title>PineEditor-Editor</title><link rel="apple-touch-icon" href="images/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><style>.splash-screen {
         position: absolute;
         width: 100%;
         height: 100%;
@@ -38,28 +38,55 @@
       }
       .splash-error-title {
         font-weight: bold;
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
       }
       .splash-error-title a {
-        color: inherit;
+        color: #75C1C4;
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .splash-error-title a:hover {
+        color: #5AB8BC;
       }
       .splash-errors {
-        font-family: monospace;
+        font-family: 'Consolas', 'Monaco', monospace;
+        font-size: 0.875rem;
+        line-height: 1.6;
+        max-width: 800px;
+        width: 90%;
+        max-height: 40vh;
+        overflow-y: auto;
+        background: rgba(0, 0, 0, 0.1);
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: left;
+        word-break: break-all;
       }
       .splash-error-list {
         white-space: pre-wrap;
+        color: #e53935;
       }
       .splash-reset {
-        color: inherit;
-        background: none;
-        padding: 0;
-        margin: 0;
-        border: none;
-        text-decoration: underline;
+        color: #75C1C4;
+        background: rgba(117, 193, 196, 0.1);
+        padding: 0.5rem 1rem;
+        margin-top: 1rem;
+        border: 1px solid #75C1C4;
+        border-radius: 4px;
+        text-decoration: none;
         cursor: pointer;
+        font-size: 0.9rem;
+        transition: background-color 0.2s, color 0.2s;
+      }
+      .splash-reset:hover {
+        background: rgba(117, 193, 196, 0.2);
+        color: #5AB8BC;
       }
       .splash-reset:disabled {
-        opacity: 0.8;
-      }</style></head><body><noscript><div class="splash-screen"><div><h1>PineEditor requires JavaScript</h1><p>Consider using <a href="https://desktop.turbowarp.org/">TurboWarp Desktop</a> if you are afraid of remote JavaScript.</p></div></div></noscript><div class="splash-screen spash-waiting-for-js" hidden><div class="splash-spinner"></div><div class="splash-error-title" hidden>Something went wrong. <a href="https://scratch.mit.edu/users/M1stium/#comments" target="_blank" rel="noreferrer">Please report</a> with the information below.</div><div class="splash-errors" hidden></div><button class="splash-reset" hidden>Click here to reset caches (can fix some errors)</button></div><script>(function () {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }</style></head><body><noscript><div class="splash-screen"><div><h1>PineEditor requires JavaScript</h1><p>Consider using <a href="https://desktop.turbowarp.org/">TurboWarp Desktop</a> if you are afraid of remote JavaScript.</p></div></div></noscript><div class="splash-screen spash-waiting-for-js" hidden><div class="splash-spinner"></div><div class="splash-error-title" hidden>Something went wrong. <a href="https://github.com/PineWarp/PineWarp.github.io/issues" target="_blank" rel="noreferrer">Please report</a> with the information below.</div><div class="splash-errors" hidden></div><button class="splash-reset" hidden>Click here to reset caches (can fix some errors)</button></div><script>(function () {
         'use strict';
 
         var theme = '';
@@ -135,4 +162,4 @@
           splash.hidden = true;
           window.onerror = null;
         };
-      })();</script><div id="app"></div><script src="js/gleba4/runtime.c7b94eba3132168b876c.js"></script><script src="js/gleba4/vendors.4e3721d7ccb838fc09f2.js"></script><script src="js/gleba4/common.87fd495926d4bb784032.js"></script><script src="js/gleba4/editor.e91337f9eeea9bcde317.js"></script></body></html>
+      })();</script><div id="app"></div><script src="js/gleba4/runtime.2bb9011a417c65819fe6.js"></script><script src="js/gleba4/paint.8d490c5a8f05525466c4.js"></script><script src="js/gleba4/scratch-vm.5c18b7b9135c8778324d.js"></script><script src="js/gleba4/react.910358daf6057cfe9f8e.js"></script><script src="js/gleba4/scratch-render.2b23ab9511ef291c9d39.js"></script><script src="js/gleba4/vendors.5e3118cb744d6dce0e1c.js"></script><script src="js/gleba4/common.c606e376b0f4bf12744d.js"></script><script src="js/gleba4/editor.e4af2c1db71299a57e08.js"></script></body></html>
