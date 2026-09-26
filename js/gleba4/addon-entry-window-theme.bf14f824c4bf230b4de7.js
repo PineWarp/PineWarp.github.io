@@ -1,0 +1,1 @@
+(window.webpackJsonpGUI=window.webpackJsonpGUI||[]).push([[123],{"FZ/X":function(s,n,c){"use strict";c.r(n),c.d(n,"resources",(function(){return a}));var o=c("fv5V"),r=c.n(o),w=c("Ort+"),t=c.n(w);const a={"macos.css":r.a,"windows10.css":t.a}}}]);
