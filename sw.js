@@ -5,12 +5,12 @@
 const CACHE_NAME = 'pinewarp-cache-v3';
 const RUNTIME_CACHE = 'pinewarp-runtime-v2';
 
-// Assets to cache immediately
+// Assets to cache immediately. Every entry must resolve in the deploy: a single
+// 404 makes cache.addAll reject and nothing at all gets precached.
 const PRECACHE_URLS = [
-    '/',
-    '/static/blocks-media/default/backdrop1.svg',
-    '/static/blocks-media/default/costume1.svg',
-    '/static/assets/icon-96x96.png'
+    '/images/192.png',
+    '/manifest.webmanifest',
+    '/favicon.ico'
 ];
 
 // Install event - cache core assets
@@ -19,7 +19,7 @@ self.addEventListener('install', event => {
         caches.open(CACHE_NAME)
             .then(cache => {
                 console.log('Precaching core assets');
-                return cache.addAll(PRECACHE_URLS.filter(url => url !== '/'));
+                return cache.addAll(PRECACHE_URLS);
             })
             .then(() => self.skipWaiting())
             .catch(err => {
