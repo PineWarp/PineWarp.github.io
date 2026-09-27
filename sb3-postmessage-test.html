@@ -73,7 +73,59 @@
         }
     </style>
 </head>
-<body>
+<body><script>// This build does not register a service worker, but registrations left
+      // behind by earlier deploys stay active forever and keep serving their own
+      // cached HTML - a returning visitor would land on the old editor page at
+      // "/" and get bounced to /editor.html. Evict them, refresh the cached root
+      // document, and reload once so this visitor lands on the current build.
+      (function () {
+        var BUST_KEY = 'tw:service-worker-purge';
+        function dropCaches() {
+          if (!window.caches || !caches.keys) return;
+          caches.keys().then(function (names) {
+            names.forEach(function (name) {
+              caches.delete(name);
+            });
+          }).catch(function () {});
+        }
+        // GitHub Pages serves HTML with max-age=600, so the browser's HTTP cache
+        // still holds the previous deploy's root document. Replace that entry.
+        function refreshRoot() {
+          if (!window.fetch) return Promise.resolve();
+          return fetch(location.pathname, {
+            cache: 'reload',
+            credentials: 'same-origin'
+          }).catch(function () {});
+        }
+        function reload() {
+          // A URL that already carries nocache= is guaranteed fresh; reloading it
+          // would just add another parameter.
+          if (/[?&]nocache=[\d.]+/.test(location.search)) return;
+          try {
+            if (sessionStorage.getItem(BUST_KEY)) return;
+            sessionStorage.setItem(BUST_KEY, '1');
+          } catch (e) {
+            // No sessionStorage: skip the reload rather than risk a loop.
+            return;
+          }
+          var search = location.search.replace(/[?&]nocache=[\d.]+(?=$|&)/, '');
+          location.replace(location.pathname + search + (search ? '&' : '?') +
+            'nocache=' + Math.floor(Math.random() * 10000000));
+        }
+        if (!('serviceWorker' in navigator)) return;
+        navigator.serviceWorker.getRegistrations().then(function (registrations) {
+          if (!registrations.length) return false;
+          return Promise.all(registrations.map(function (registration) {
+            return registration.unregister();
+          })).then(function () {
+            return true;
+          });
+        }).then(function (purged) {
+          if (!purged) return;
+          dropCaches();
+          refreshRoot().then(reload);
+        }).catch(function () {});
+      })();</script>
     <div class="container">
         <h1>PineWarp SB3 PostMessage Test</h1>
         
@@ -110,7 +162,7 @@
         </div>
 
         <div class="iframe-container">
-            <iframe id="pineWarpFrame" src="http://localhost:8601/" title="PineWarp Editor"></iframe>
+            <iframe id="bilupFrame" src="http://localhost:8601/" title="PineWarp Editor"></iframe>
         </div>
     </div>
 
@@ -135,7 +187,7 @@
                 message.title = title;
             }
 
-            sendMessageToPineWarp(message);
+            sendMessageToBilup(message);
         }
 
         function handleFileSelect(event) {
@@ -158,7 +210,7 @@
                     title: title
                 };
 
-                sendMessageToPineWarp(message);
+                sendMessageToBilup(message);
             };
             reader.readAsArrayBuffer(selectedFile);
         }
@@ -172,11 +224,11 @@
                 title: 'Sample Project - Stretch'
             };
 
-            sendMessageToPineWarp(message);
+            sendMessageToBilup(message);
         }
 
-        function sendMessageToPineWarp(message) {
-            const iframe = document.getElementById('pineWarpFrame');
+        function sendMessageToBilup(message) {
+            const iframe = document.getElementById('bilupFrame');
             
             console.log('Sending message to PineWarp:', message);
             
@@ -198,7 +250,7 @@
 
         // Update the default PineWarp URL based on the current protocol
         window.addEventListener('load', function() {
-            const iframe = document.getElementById('pineWarpFrame');
+            const iframe = document.getElementById('PineWarpFrame');
             const currentProtocol = window.location.protocol;
             const defaultUrl = currentProtocol === 'https:' ? 
                 'https://localhost:8601/' : 

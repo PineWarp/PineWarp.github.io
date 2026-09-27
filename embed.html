@@ -29,7 +29,59 @@
       @keyframes splash-spinner {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
-      }</style><script defer="defer" src="js/gleba4/runtime.eda8c5a90f6aa2a72e66.js"></script><script defer="defer" src="js/gleba4/paint.8d490c5a8f05525466c4.js"></script><script defer="defer" src="js/gleba4/scratch-vm.8e87494df64bbef32331.js"></script><script defer="defer" src="js/gleba4/react.910358daf6057cfe9f8e.js"></script><script defer="defer" src="js/gleba4/scratch-render.2b23ab9511ef291c9d39.js"></script><script defer="defer" src="js/gleba4/vendors.d07b40389236be6d387e.js"></script><script defer="defer" src="js/gleba4/common.e7624afe1da950bc8557.js"></script><script defer="defer" src="js/gleba4/embed.4ccb87d814f7cbaa6168.js"></script></head><body><noscript><div class="splash-screen"><h1>This embed requires JavaScript</h1></div></noscript><div class="splash-screen" hidden id="splash-need-js"><div class="splash-spinner"></div></div><script>(function() {
+      }</style><script defer="defer" src="js/gleba6/runtime.55095a95e5c65d6cbfae.js"></script><script defer="defer" src="js/gleba6/paint.8ccd9ea98c47078d4d2c.js"></script><script defer="defer" src="js/gleba6/scratch-vm.04116943a3cc83f284f2.js"></script><script defer="defer" src="js/gleba6/react.137590996e1775b1dbf6.js"></script><script defer="defer" src="js/gleba6/scratch-render.bdae463a842177e97981.js"></script><script defer="defer" src="js/gleba6/vendors.a8750426f121c41203c2.js"></script><script defer="defer" src="js/gleba6/common.d78a088830445c18effd.js"></script><script defer="defer" src="js/gleba6/embed.81bfa30e1a1d3c818bc7.js"></script></head><body><script>// This build does not register a service worker, but registrations left
+      // behind by earlier deploys stay active forever and keep serving their own
+      // cached HTML - a returning visitor would land on the old editor page at
+      // "/" and get bounced to /editor.html. Evict them, refresh the cached root
+      // document, and reload once so this visitor lands on the current build.
+      (function () {
+        var BUST_KEY = 'tw:service-worker-purge';
+        function dropCaches() {
+          if (!window.caches || !caches.keys) return;
+          caches.keys().then(function (names) {
+            names.forEach(function (name) {
+              caches.delete(name);
+            });
+          }).catch(function () {});
+        }
+        // GitHub Pages serves HTML with max-age=600, so the browser's HTTP cache
+        // still holds the previous deploy's root document. Replace that entry.
+        function refreshRoot() {
+          if (!window.fetch) return Promise.resolve();
+          return fetch(location.pathname, {
+            cache: 'reload',
+            credentials: 'same-origin'
+          }).catch(function () {});
+        }
+        function reload() {
+          // A URL that already carries nocache= is guaranteed fresh; reloading it
+          // would just add another parameter.
+          if (/[?&]nocache=[\d.]+/.test(location.search)) return;
+          try {
+            if (sessionStorage.getItem(BUST_KEY)) return;
+            sessionStorage.setItem(BUST_KEY, '1');
+          } catch (e) {
+            // No sessionStorage: skip the reload rather than risk a loop.
+            return;
+          }
+          var search = location.search.replace(/[?&]nocache=[\d.]+(?=$|&)/, '');
+          location.replace(location.pathname + search + (search ? '&' : '?') +
+            'nocache=' + Math.floor(Math.random() * 10000000));
+        }
+        if (!('serviceWorker' in navigator)) return;
+        navigator.serviceWorker.getRegistrations().then(function (registrations) {
+          if (!registrations.length) return false;
+          return Promise.all(registrations.map(function (registration) {
+            return registration.unregister();
+          })).then(function () {
+            return true;
+          });
+        }).then(function (purged) {
+          if (!purged) return;
+          dropCaches();
+          refreshRoot().then(reload);
+        }).catch(function () {});
+      })();</script><noscript><div class="splash-screen"><h1>This embed requires JavaScript</h1></div></noscript><div class="splash-screen" hidden id="splash-need-js"><div class="splash-spinner"></div></div><script>(function() {
         'use strict';
 
         var splash = document.getElementById('splash-need-js');

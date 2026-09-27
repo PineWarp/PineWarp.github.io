@@ -194,7 +194,59 @@
         </script>
     </head>
 
-    <body>
+    <body><script>// This build does not register a service worker, but registrations left
+      // behind by earlier deploys stay active forever and keep serving their own
+      // cached HTML - a returning visitor would land on the old editor page at
+      // "/" and get bounced to /editor.html. Evict them, refresh the cached root
+      // document, and reload once so this visitor lands on the current build.
+      (function () {
+        var BUST_KEY = 'tw:service-worker-purge';
+        function dropCaches() {
+          if (!window.caches || !caches.keys) return;
+          caches.keys().then(function (names) {
+            names.forEach(function (name) {
+              caches.delete(name);
+            });
+          }).catch(function () {});
+        }
+        // GitHub Pages serves HTML with max-age=600, so the browser's HTTP cache
+        // still holds the previous deploy's root document. Replace that entry.
+        function refreshRoot() {
+          if (!window.fetch) return Promise.resolve();
+          return fetch(location.pathname, {
+            cache: 'reload',
+            credentials: 'same-origin'
+          }).catch(function () {});
+        }
+        function reload() {
+          // A URL that already carries nocache= is guaranteed fresh; reloading it
+          // would just add another parameter.
+          if (/[?&]nocache=[\d.]+/.test(location.search)) return;
+          try {
+            if (sessionStorage.getItem(BUST_KEY)) return;
+            sessionStorage.setItem(BUST_KEY, '1');
+          } catch (e) {
+            // No sessionStorage: skip the reload rather than risk a loop.
+            return;
+          }
+          var search = location.search.replace(/[?&]nocache=[\d.]+(?=$|&)/, '');
+          location.replace(location.pathname + search + (search ? '&' : '?') +
+            'nocache=' + Math.floor(Math.random() * 10000000));
+        }
+        if (!('serviceWorker' in navigator)) return;
+        navigator.serviceWorker.getRegistrations().then(function (registrations) {
+          if (!registrations.length) return false;
+          return Promise.all(registrations.map(function (registration) {
+            return registration.unregister();
+          })).then(function () {
+            return true;
+          });
+        }).then(function (purged) {
+          if (!purged) return;
+          dropCaches();
+          refreshRoot().then(reload);
+        }).catch(function () {});
+      })();</script>
         <main>
             <div class="card">
                 <div class="header">
@@ -215,7 +267,7 @@
                 </section>
 
                 <section>
-                    <h2>pinewarp.org</h2>
+                    <h2>bilup.org</h2>
                     <p>A randomly generated username may be saved in your browser. You can replace this with a custom username. Randomly generated usernames are anonymized by removing the random numbers before being sent to any cloud variable server.</p>
                     <p>When you start a project that is loaded from Scratch, this may be logged so that a view counter can be incremented over time. Views are anonymous and can not be tied back to any user. You can prevent your views from being counted by unchecking the box below. This checkbox will not affect your ability to see view counts.</p>
                     <p>
@@ -273,7 +325,7 @@
 
                 <section>
                     <h2>Settings</h2>
-                    <p>Many PineWarp websites will store settings such as <a href="https://com.pinewarp.org/addons">addon settings</a> or <a href="https://packager.pinewarp.org/">packager settings</a> in your browser.</p>
+                    <p>Many PineWarp websites will store settings such as <a href="https://com.pinewarp.org/addons">addon settings</a> or <a href="https://packager.bilup.org/">packager settings</a> in your browser.</p>
                 </section>
 
                 <section>
@@ -283,18 +335,18 @@
 
                 <section>
                     <h2>PineWarp Desktop</h2>
-                    <p><a href="https://desktop.pinewarp.org/">PineWarp Desktop</a> may make requests to check for updates. This can be disabled by pressing "Settings" then "Desktop Settings".</p>
-                    <p><a href="https://desktop.pinewarp.org/">PineWarp Desktop</a> has a disabled-by-default option to enable "Rich Presence" which shares the name of the project you have open and how long it has been open with chat apps running on your computer, which may be displayed on your public profile. This can be disabled by pressing "Settings" then "Desktop Settings".</p>
+                    <p><a href="https://desktop.bilup.org/">PineWarp Desktop</a> may make requests to check for updates. This can be disabled by pressing "Settings" then "Desktop Settings".</p>
+                    <p><a href="https://desktop.bilup.org/">PineWarp Desktop</a> has a disabled-by-default option to enable "Rich Presence" which shares the name of the project you have open and how long it has been open with chat apps running on your computer, which may be displayed on your public profile. This can be disabled by pressing "Settings" then "Desktop Settings".</p>
                 </section>
 
                 <section>
-                    <h2><a href="https://docs.pinewarp.org/">PineWarp Documentation</a></h2>
+                    <h2><a href="https://docs.bilup.org/">PineWarp Documentation</a></h2>
                     <p>The search bar is provided by Algolia. See the <a href="https://www.algolia.com/policies/privacy/">Algolia privacy policy</a>.</p>
                 </section>
 
                 <section>
                     <h2>PineWarp Packager</h2>
-                    <p>The <a href="https://packager.pinewarp.org/">PineWarp Packager</a> may store settings and cache large downloads such as Electron in your browser for convenience and performance.</p>
+                    <p>The <a href="https://packager.bilup.org/">PineWarp Packager</a> may store settings and cache large downloads such as Electron in your browser for convenience and performance.</p>
                     <p>When packaging a project using custom extensions, the packager may access those websites to download the extensions.</p>
                 </section>
 
@@ -313,7 +365,7 @@
 
                 <section>
                     <h2>Contact</h2>
-                    <p>Any concerns related to privacy or any other matter should be sent to: <a href="mailto:support@pinewarp.org">support@pinewarp.org</a></p>
+                    <p>Any concerns related to privacy or any other matter should be sent to: <a href="mailto:support@bilup.org">support@bilup.org</a></p>
                 </section>
             </div>
         </main>
