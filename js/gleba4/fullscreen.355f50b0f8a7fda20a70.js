@@ -1,1 +1,0 @@
-(window.webpackJsonpGUI=window.webpackJsonpGUI||[]).push([[131],{"+1nf":function(n,e,a){"use strict";a.r(e),a("LPSY");var c=a("q1tI"),s=a.n(c),t=a("DQhk"),i=a("CvcH");Object(i.a)(s.a.createElement(t.a,{isPlayerOnly:!0,isFullScreen:!0}))}},[["+1nf",28,29,2,27,30,1,0]]]);

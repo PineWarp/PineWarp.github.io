@@ -1,114 +1,20 @@
-<!doctype html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="google" value="notranslate"><meta name="description" content="Create, edit, and share projects with PineWarp's powerful Scratch editor. Build games, animations, and interactive stories with advanced features and optimizations."/><meta property="og:title" content="PineWarp - Editor"/><meta property="og:description" content="Create, edit, and share projects with PineWarp's powerful Scratch editor. Build games, animations, and interactive stories with advanced features and optimizations."/><meta property="og:type" content="website"/><meta property="og:image" content="images/apple-touch-icon.png"/><meta property="og:url" content="https://pinewarp.github.io/"/><title>PineWarp - Editor</title><link rel="apple-touch-icon" href="images/apple-touch-icon.png"><link rel="manifest" href="manifest.webmanifest"><style>.splash-screen {
-        position: absolute;
-        width: 100%;
-        height: 100%;
-        top: 0;
-        left: 0;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
+<!doctype html><html><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="description" content="PineWarp is a powerful Scratch mod that enhances your Scratch experience with advanced features and optimizations."/><meta property="og:title" content="PineWarp"/><meta property="og:description" content="PineWarp is a powerful Scratch mod that enhances your Scratch experience with advanced features and optimizations."/><meta property="og:type" content="website"/><meta property="og:image" content="images/apple-touch-icon.png"/><meta property="og:url" content="https://com.pinewarp.org/"/><meta property="og:site_name" content="PineWarp"/><meta name="twitter:card" content="summary"/><title>PineWarp</title><style>body[data-splash-theme="dark"] {
+        background: #111;
+      }
+
+      noscript {
         font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
       }
-      .splash-screen[hidden] {
-        display: none;
-      }
-      .splash-screen[data-theme="dark"] {
-        background-color: #333;
-        color: white;
-      }
-      .splash-screen > * {
-        max-width: 80%;
-      }
-      .splash-spinner:after {
-        content: " ";
-        display: block;
-        width: 64px;
-        height: 64px;
-        border-radius: 50%;
-        border: 6px solid;
-        border-color: currentColor transparent currentColor transparent;
-        animation: splash-spinner 1.2s linear infinite;
-      }
-      @keyframes splash-spinner {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-      .splash-error-title {
-        font-weight: bold;
-        font-size: 1.25rem;
-        margin-bottom: 0.5rem;
-      }
-      .splash-error-title a {
-        color: #75C1C4;
-        text-decoration: none;
-        transition: color 0.2s;
-      }
-      .splash-error-title a:hover {
-        color: #5AB8BC;
-      }
-      .splash-errors {
-        font-family: 'Consolas', 'Monaco', monospace;
-        font-size: 0.875rem;
-        line-height: 1.6;
-        max-width: 800px;
-        width: 90%;
-        max-height: 40vh;
-        overflow-y: auto;
-        background: rgba(0, 0, 0, 0.1);
-        border-radius: 8px;
-        padding: 1rem;
-        text-align: left;
-        word-break: break-all;
-      }
-      .splash-error-list {
-        white-space: pre-wrap;
-        color: #e53935;
-      }
-      .splash-reset {
-        color: #75C1C4;
-        background: rgba(117, 193, 196, 0.1);
-        padding: 0.5rem 1rem;
-        margin-top: 1rem;
-        border: 1px solid #75C1C4;
-        border-radius: 4px;
-        text-decoration: none;
-        cursor: pointer;
-        font-size: 0.9rem;
-        transition: background-color 0.2s, color 0.2s;
-      }
-      .splash-reset:hover {
-        background: rgba(117, 193, 196, 0.2);
-        color: #5AB8BC;
-      }
-      .splash-reset:disabled {
-        opacity: 0.5;
-        cursor: not-allowed;
-      }</style><script defer="defer" src="js/gleba4/runtime.520809130facd0084471.js"></script><script defer="defer" src="js/gleba4/paint.3dccdf51bdb2773ebe1a.js"></script><script defer="defer" src="js/gleba4/scratch-vm.8e87494df64bbef32331.js"></script><script defer="defer" src="js/gleba4/react.0a0d9a4f5a4104363efa.js"></script><script defer="defer" src="js/gleba4/scratch-render.47e6a8d23145211db051.js"></script><script defer="defer" src="js/gleba4/vendors.4590c5204db271e15667.js"></script><script defer="defer" src="js/gleba4/common.532d4d7f323171e76739.js"></script><script defer="defer" src="js/gleba4/editor.d3d32f0027bed53fdc7d.js"></script></head><body><noscript><div class="splash-screen"><div><h1>PineWarp requires JavaScript</h1><p>Consider using <a href="https://desktop.turbowarp.org/">TurboWarp Desktop</a> if you are afraid of remote JavaScript.</p></div></div></noscript><div class="splash-screen spash-waiting-for-js" hidden><div class="splash-spinner"></div><div class="splash-error-title" hidden><span class="i18n-en">Something went wrong. <a href="https://github.com/PineWarp/PineWarp.github.io/issues" target="_blank" rel="noreferrer">Please report</a> with the information below.</span><span class="i18n-zh" hidden>出错了。<a href="https://github.com/PineWarp/PineWarp.github.io/issues" target="_blank" rel="noreferrer">请反馈</a>并附上下方信息。</span></div><div class="splash-errors" hidden></div><button class="splash-reset" hidden><span class="i18n-en">Click here to reset caches (can fix some errors)</span><span class="i18n-zh" hidden>点此重置缓存（可修复部分错误）</span></button></div><script>(function () {
-        'use strict';
 
-        // Pick the splash language the same way the editor does: stored choice
-        // first, then the browser language. Everything else falls back to English.
-        var isZh = false;
-        try {
-          var langSetting = localStorage.getItem('tw:language');
-          if (langSetting) {
-            isZh = langSetting.toLowerCase().indexOf('zh') === 0;
-          } else {
-            isZh = (navigator.language || '').toLowerCase().indexOf('zh') === 0;
-          }
-        } catch (e) {
-          // ignore
-        }
-        if (isZh) {
-          var enNodes = document.querySelectorAll('.i18n-en');
-          var zhNodes = document.querySelectorAll('.i18n-zh');
-          for (var i = 0; i < enNodes.length; i++) enNodes[i].hidden = true;
-          for (var j = 0; j < zhNodes.length; j++) zhNodes[j].hidden = false;
-        }
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
 
+      #app {
+        height: 100%;
+      }</style><script defer="defer" src="js/gleba4/runtime.59cd149522e8a7703aa8.js"></script><script defer="defer" src="js/gleba4/scratch-vm.8e87494df64bbef32331.js"></script><script defer="defer" src="js/gleba4/react.0a0d9a4f5a4104363efa.js"></script><script defer="defer" src="js/gleba4/vendors.22791a55d8e07992d87d.js"></script><script defer="defer" src="js/gleba4/common.72b0d9c67c55fb5c9535.js"></script><script defer="defer" src="js/gleba4/community.f4043d123d2d4f888430.js"></script></head><body><noscript><h1>This page requires JavaScript</h1></noscript><script>(function() {
         var theme = '';
         var accent = '#75C1C4';
 
@@ -124,8 +30,9 @@
         } else if (themeSetting) {
           try {
             var parsed = JSON.parse(themeSetting);
-            theme = parsed.gui || 'light';
-            accent = parsed.accent || accent;
+            if (parsed.gui === 'dark' || parsed.gui === 'light') {
+              theme = parsed.gui;
+            }
           } catch (e) {
             // ignore
           }
@@ -135,51 +42,5 @@
           theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
 
-        var splash = document.querySelector('.spash-waiting-for-js');
-        splash.setAttribute('data-theme', theme);
-        splash.style.color = accent;
-        splash.hidden = false;
-
-        var splashErrorTitle = document.querySelector('.splash-error-title');
-        var splashError = document.querySelector('.splash-errors');
-        var splashReset = document.querySelector('.splash-reset');
-
-        var totalErrors = 0;
-        window.onerror = function (event, source, line, col, err) {
-          if (++totalErrors > 5) return; // dont bother logging more
-          splashErrorTitle.hidden = splashError.hidden = splashReset.hidden = false;
-          var el = document.createElement('div');
-          el.textContent = 'Error (splash) in ' + source + ' (' + line + ':' + col + '): ' + err;
-          splashError.appendChild(el);
-        };
-
-        splashReset.onclick = function () {
-          splashReset.disabled = true;
-          function hardRefresh() {
-            var search = location.search.replace(/[?&]nocache=[\d.]+(?=$|&)/, '');
-            // This is a functional cookie used so that we respond with Clear-Site-Data just once. No tracking.
-            // Can't use nocache parameter to trigger this because people might accidentally bookmark that, and
-            // then we would be clearing their cache on every visit.
-            document.cookie = 'tw_clear_cache_once=1; max-age=60; path=/; samesite=strict; secure';
-            location.replace(location.pathname + search + (search ? '&' : '?') + 'nocache=' + Math.floor(Math.random() * 10000000));
-          }
-          if ('serviceWorker' in navigator) {
-            setTimeout(hardRefresh, 5000);
-            navigator.serviceWorker.getRegistration("")
-              .then(function(registration) {
-                if (registration) {
-                  return registration.unregister();
-                }
-              })
-              .then(hardRefresh)
-              .catch(hardRefresh);
-          } else {
-            hardRefresh();
-          }
-        };
-
-        window.SplashEnd = () => {
-          splash.hidden = true;
-          window.onerror = null;
-        };
-      })();</script><div id="app"></div></body></html>
+        document.body.setAttribute('data-splash-theme', theme);
+      })();</script><div id="app"></div><script>window.MW_EDITOR_CHUNKS=["js/gleba4/runtime.59cd149522e8a7703aa8.js","js/gleba4/paint.3dccdf51bdb2773ebe1a.js","js/gleba4/scratch-vm.8e87494df64bbef32331.js","js/gleba4/react.0a0d9a4f5a4104363efa.js","js/gleba4/scratch-render.47e6a8d23145211db051.js","js/gleba4/vendors.22791a55d8e07992d87d.js","js/gleba4/common.72b0d9c67c55fb5c9535.js","js/gleba4/editor.fdc797844009e3ed6544.js"];</script></body></html>
