@@ -14,7 +14,59 @@
 
       #app {
         height: 100%;
-      }</style><script defer="defer" src="js/gleba4/runtime.59cd149522e8a7703aa8.js"></script><script defer="defer" src="js/gleba4/scratch-vm.8e87494df64bbef32331.js"></script><script defer="defer" src="js/gleba4/react.0a0d9a4f5a4104363efa.js"></script><script defer="defer" src="js/gleba4/vendors.22791a55d8e07992d87d.js"></script><script defer="defer" src="js/gleba4/common.72b0d9c67c55fb5c9535.js"></script><script defer="defer" src="js/gleba4/credits.8e6e573edb726014affe.js"></script></head><body><noscript><h1>This page requires JavaScript</h1></noscript><script>(function() {
+      }</style><script defer="defer" src="js/gleba4/runtime.59cd149522e8a7703aa8.js"></script><script defer="defer" src="js/gleba4/scratch-vm.8e87494df64bbef32331.js"></script><script defer="defer" src="js/gleba4/react.0a0d9a4f5a4104363efa.js"></script><script defer="defer" src="js/gleba4/vendors.22791a55d8e07992d87d.js"></script><script defer="defer" src="js/gleba4/common.72b0d9c67c55fb5c9535.js"></script><script defer="defer" src="js/gleba4/credits.8e6e573edb726014affe.js"></script></head><body><script>// This build does not register a service worker, but registrations left
+      // behind by earlier deploys stay active forever and keep serving their own
+      // cached HTML - a returning visitor would land on the old editor page at
+      // "/" and get bounced to /editor.html. Evict them, refresh the cached root
+      // document, and reload once so this visitor lands on the current build.
+      (function () {
+        var BUST_KEY = 'tw:service-worker-purge';
+        function dropCaches() {
+          if (!window.caches || !caches.keys) return;
+          caches.keys().then(function (names) {
+            names.forEach(function (name) {
+              caches.delete(name);
+            });
+          }).catch(function () {});
+        }
+        // GitHub Pages serves HTML with max-age=600, so the browser's HTTP cache
+        // still holds the previous deploy's root document. Replace that entry.
+        function refreshRoot() {
+          if (!window.fetch) return Promise.resolve();
+          return fetch(location.pathname, {
+            cache: 'reload',
+            credentials: 'same-origin'
+          }).catch(function () {});
+        }
+        function reload() {
+          // A URL that already carries nocache= is guaranteed fresh; reloading it
+          // would just add another parameter.
+          if (/[?&]nocache=[\d.]+/.test(location.search)) return;
+          try {
+            if (sessionStorage.getItem(BUST_KEY)) return;
+            sessionStorage.setItem(BUST_KEY, '1');
+          } catch (e) {
+            // No sessionStorage: skip the reload rather than risk a loop.
+            return;
+          }
+          var search = location.search.replace(/[?&]nocache=[\d.]+(?=$|&)/, '');
+          location.replace(location.pathname + search + (search ? '&' : '?') +
+            'nocache=' + Math.floor(Math.random() * 10000000));
+        }
+        if (!('serviceWorker' in navigator)) return;
+        navigator.serviceWorker.getRegistrations().then(function (registrations) {
+          if (!registrations.length) return false;
+          return Promise.all(registrations.map(function (registration) {
+            return registration.unregister();
+          })).then(function () {
+            return true;
+          });
+        }).then(function (purged) {
+          if (!purged) return;
+          dropCaches();
+          refreshRoot().then(reload);
+        }).catch(function () {});
+      })();</script><noscript><h1>This page requires JavaScript</h1></noscript><script>(function() {
         var theme = '';
         var accent = '#75C1C4';
 

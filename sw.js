@@ -3,7 +3,7 @@
 // deletes every cache whose name is not one of the two below, so a bump is what
 // evicts a previously poisoned cache from returning visitors.
 const CACHE_NAME = 'pinewarp-cache-v8';
-const RUNTIME_CACHE = 'pinewarp-runtime-v5';
+const RUNTIME_CACHE = 'pinewarp-runtime-v6';
 
 // Assets to cache immediately. Every entry must resolve in the deploy: a single
 // 404 makes cache.addAll reject and nothing at all gets precached.
@@ -84,6 +84,29 @@ const networkFirst = async request => {
     }
 };
 
+// Same as networkFirst, but bypasses the browser's HTTP cache. GitHub Pages
+// serves HTML with `Cache-Control: max-age=600`, so a plain fetch() can hand
+// back the previous deploy's HTML - which pins visitors to the old page and its
+// old hashed chunks for up to ten minutes after a deploy. Documents are the one
+// thing we must never serve stale, so they go through here.
+const networkFirstDocument = async request => {
+    const cache = await caches.open(RUNTIME_CACHE);
+
+    try {
+        const response = await fetch(request, {cache: 'no-store'});
+        if (response.status === 200) {
+            cache.put(request, response.clone());
+        }
+        return response;
+    } catch (error) {
+        const cached = await cache.match(request);
+        if (cached) {
+            return cached;
+        }
+        throw error;
+    }
+};
+
 // Stale while revalidate - good for frequently updated content
 const staleWhileRevalidate = async request => {
     const cache = await caches.open(RUNTIME_CACHE);
@@ -117,7 +140,7 @@ self.addEventListener('fetch', event => {
         // visitor to the previous deploy's HTML, which references the previous
         // deploy's hashed chunks - so the old build keeps running forever.
         // Network-first means the next load picks up a new deploy immediately.
-        event.respondWith(networkFirst(request));
+        event.respondWith(networkFirstDocument(request));
     } else if (request.destination === 'script' || request.destination === 'style') {
         // Cache first for JS/CSS files
         event.respondWith(cacheFirst(request));
