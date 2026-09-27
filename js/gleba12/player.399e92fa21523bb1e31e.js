@@ -1,0 +1,1 @@
+(window.webpackJsonpGUI=window.webpackJsonpGUI||[]).push([[106],{UXOo:function(e,n,a){"use strict";a.r(n),a("LPSY");var c=a("VtiI"),o=a.n(c),t=a("DQhk"),i=a("CvcH");Object(i.a)(o.a.createElement(t.a,{isPlayerOnly:!0}))}},[["UXOo",24,25,2,23,26,1,0]]]);
