@@ -1,0 +1,1 @@
+(window.webpackJsonpGUI=window.webpackJsonpGUI||[]).push([[82],{Cjif:function(n,s,e){"use strict";e.r(s),e.d(s,"resources",(function(){return c}));const c={userscript:()=>e.e(133).then(e.bind(null,"pjKp"))}}}]);
