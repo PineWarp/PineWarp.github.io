@@ -29,59 +29,7 @@
       @keyframes splash-spinner {
         0% { transform: rotate(0deg); }
         100% { transform: rotate(360deg); }
-      }</style><script defer="defer" src="js/gleba22/runtime.ecf3792ce45d902ffef9.js"></script><script defer="defer" src="js/gleba22/paint.48fc6fd708013b155402.js"></script><script defer="defer" src="js/gleba22/scratch-vm.a526aaca3e93d91b70f4.js"></script><script defer="defer" src="js/gleba22/react.c076cd637d6d77f2e735.js"></script><script defer="defer" src="js/gleba22/scratch-render.5e5a859ff8a1d59405a7.js"></script><script defer="defer" src="js/gleba22/vendors.4b6848fc49ecef1aee2a.js"></script><script defer="defer" src="js/gleba22/common.1e4f3f4bb6aca2426c8e.js"></script><script defer="defer" src="js/gleba22/embed.db1b26b7d7e42bc536a0.js"></script></head><body><script>// This build does not register a service worker, but registrations left
-      // behind by earlier deploys stay active forever and keep serving their own
-      // cached HTML - a returning visitor would land on the old editor page at
-      // "/" and get bounced to /editor.html. Evict them, refresh the cached root
-      // document, and reload once so this visitor lands on the current build.
-      (function () {
-        var BUST_KEY = 'tw:service-worker-purge';
-        function dropCaches() {
-          if (!window.caches || !caches.keys) return;
-          caches.keys().then(function (names) {
-            names.forEach(function (name) {
-              caches.delete(name);
-            });
-          }).catch(function () {});
-        }
-        // GitHub Pages serves HTML with max-age=600, so the browser's HTTP cache
-        // still holds the previous deploy's root document. Replace that entry.
-        function refreshRoot() {
-          if (!window.fetch) return Promise.resolve();
-          return fetch(location.pathname, {
-            cache: 'reload',
-            credentials: 'same-origin'
-          }).catch(function () {});
-        }
-        function reload() {
-          // A URL that already carries nocache= is guaranteed fresh; reloading it
-          // would just add another parameter.
-          if (/[?&]nocache=[\d.]+/.test(location.search)) return;
-          try {
-            if (sessionStorage.getItem(BUST_KEY)) return;
-            sessionStorage.setItem(BUST_KEY, '1');
-          } catch (e) {
-            // No sessionStorage: skip the reload rather than risk a loop.
-            return;
-          }
-          var search = location.search.replace(/[?&]nocache=[\d.]+(?=$|&)/, '');
-          location.replace(location.pathname + search + (search ? '&' : '?') +
-            'nocache=' + Math.floor(Math.random() * 10000000));
-        }
-        if (!('serviceWorker' in navigator)) return;
-        navigator.serviceWorker.getRegistrations().then(function (registrations) {
-          if (!registrations.length) return false;
-          return Promise.all(registrations.map(function (registration) {
-            return registration.unregister();
-          })).then(function () {
-            return true;
-          });
-        }).then(function (purged) {
-          if (!purged) return;
-          dropCaches();
-          refreshRoot().then(reload);
-        }).catch(function () {});
-      })();</script><noscript><div class="splash-screen"><h1>This embed requires JavaScript</h1></div></noscript><div class="splash-screen" hidden id="splash-need-js"><div class="splash-spinner"></div></div><script>(function() {
+      }</style><script defer="defer" src="js/gleba24/runtime.232e080143224b449c3f.js"></script><script defer="defer" src="js/gleba24/paint.ebffc7d685814ec995d0.js"></script><script defer="defer" src="js/gleba24/scratch-vm.18575be632accdf975f3.js"></script><script defer="defer" src="js/gleba24/react.69d9dc4566d9fbf5d3ba.js"></script><script defer="defer" src="js/gleba24/scratch-render.3f0dcd85535eb1ef20ec.js"></script><script defer="defer" src="js/gleba24/vendors.341b5cb10d57faf9da1c.js"></script><script defer="defer" src="js/gleba24/common.2cf68500d5a9ba3b1e8a.js"></script><script defer="defer" src="js/gleba24/embed.81c66bfdf378ebd42b3b.js"></script></head><body><noscript><div class="splash-screen"><h1>This embed requires JavaScript</h1></div></noscript><div class="splash-screen" hidden id="splash-need-js"><div class="splash-spinner"></div></div><script>(function() {
         'use strict';
 
         var splash = document.getElementById('splash-need-js');
